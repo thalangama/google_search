@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Search from './component/Search';
+import SearchList from './component/searchList';
+import SideList from './component/SideList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class Appsss extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            results:{},
+            saved:[]
+        };
+    }
+
+    updateState(data){
+        this.setState({
+            results : data
+        });
+    }
+
+    updateSaved(name){
+        this.setState({
+            saved : this.state.saved.concat(name)
+        })
+    }
+
+    render()
+    {
+
+        return (
+            <div className="container">
+                <div className="row">
+                    <div  className="form-group col-8 col-md-8 col-xs-12 col-lg-8 " >
+
+                        <Search updateState={this.updateState.bind(this)}/>
+
+                        <SearchList updateSaved={this.updateSaved.bind(this)} searchPlaces={this.state.results}/>
+                    </div>
+
+                    <SideList saved={this.state.saved} />
+                </div>
+            </div>
+        );
+    }
 }
 
-export default App;
+ export default Appsss;
+
